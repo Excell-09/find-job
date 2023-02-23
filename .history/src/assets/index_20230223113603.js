@@ -1,1 +1,0 @@
-import interviewIlustration from './i'
