@@ -1,3 +1,5 @@
+import { initialState } from "./appContext"
+
 const reducer = (state,action)=>{
 
   if(action.type === 'DISPLAY_ALERT'){
@@ -11,6 +13,21 @@ const reducer = (state,action)=>{
   }
   if(action.type === 'STOP_LOADING'){
     return{...state, loading:false}
+  }
+  if (action.type === 'LOGOUT_USER') {
+    return {
+      ...initialState,
+      userLoading: false,
+    };
+  }
+  if (action.type === 'SETUP_USER') {
+    return {
+      ...state,
+      isLoading: false,
+      user: action.payload.user,
+      userLocation: action.payload.location,
+      jobLocation: action.payload.location,
+    };
   }
 }
 
