@@ -6,7 +6,7 @@ const Input = ({ label, type, changeHandle,...props }) => {
   const [iconEye, setIconEye] = useState(false);
 
   return (
-    <div className='relative'>
+    <div className='relative shadow-md'>
       <input className='w-full px-2 outline-none rounded-sm h-10' placeholder={label} {...props} type={type === 'password' ? (showPassword ? 'text' : 'password') : type} required onChange={changeHandle}/>
       {type === 'password' &&
         (iconEye ? (

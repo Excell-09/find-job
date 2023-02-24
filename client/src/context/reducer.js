@@ -2,6 +2,9 @@ import { initialState } from "./appContext"
 
 const reducer = (state,action)=>{
 
+  if(action.type === 'STOP_USER_LOADING'){
+    return{...state, userLoading:false}
+  }
   if(action.type === 'DISPLAY_ALERT'){
     return{...state, showAlert:true, textAlert:action.payload.label,typeAlert:action.payload.status}
   }

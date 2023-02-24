@@ -1,23 +1,64 @@
-import { createContext,useContext,useReducer } from "react";
+import { createContext,useContext,useEffect,useReducer } from "react";
 import reducer from "./reducer";
 import axios from 'axios'
+import BigLoadingPage from "../components/BigLoadingPage";
 
 const appContext = createContext()
 
 export const initialState = {
-  userLoading:false,
+  userLoading:true,
   showAlert:false,
   textAlert:'',
   typeAlert:'',
   loading:false,
   user:null,
   userLocation:'',
-  jobLocation:''
+  isEditing: false,
+  editJobId: '',
+  position: '',
+  company: '',
+  jobLocation: '',
+  jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  jobType: 'full-time',
+  statusOptions: ['interview', 'declined', 'pending'],
+  status: 'pending',
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
+  stats: {},
+  monthlyApplications: [],
+  search: '',
+  searchStatus: 'all',
+  searchType: 'all',
+  sort: 'latest',
+  sortOptions: ['latest', 'oldest', 'a-z', 'z-a'],
 
 }
 
 const AppProvider = ({children})=>{
   const [state,dispatch] = useReducer(reducer,initialState)
+
+  const getCurrentUser = async () => {
+    try {
+      const { data } = await authFetch('/auth/getCurrentUser');
+      const { user, location } = data;
+
+      dispatch({
+        type: 'SETUP_USER',
+        payload: { user, location },
+      });
+      dispatch({type:'STOP_USER_LOADING'})
+    } catch (error) {
+      if (error.response.status === 401) return;
+      logoutUser();
+    }
+  };
+  
+  useEffect(() => {
+    getCurrentUser();
+    // eslint-disable-next-line
+  }, []);
 
   const logoutUser = async () => {
     await authFetch.get('/auth/logout');
@@ -36,6 +77,10 @@ const AppProvider = ({children})=>{
       // console.log(error.response)
       if (error.response.status === 401) {
         logoutUser();
+      }
+      if(error?.response?.status === 429){
+        displayAlert('Too many request, Plase wait!','error')
+
       }
       return Promise.reject(error);
     }
@@ -56,10 +101,23 @@ const AppProvider = ({children})=>{
       fn()
     } catch (error) {
       displayAlert(error.response.data.msg,'error')
-      if(error?.response?.status === 429){
-        displayAlert('Too many request, Plase wait!','error')
+    
+    }
+    stopLoading()
+  };
 
-      }
+  const updateUser = async (currentUser,fn) => {
+    try {
+      const { data } = await authFetch.patch('/auth/updateUser', currentUser);
+      const { user, location } = data;
+
+      dispatch({
+        type: 'SETUP_USER',
+        payload: { user, location },
+      });
+      fn()
+    } catch (error) {
+      displayAlert(error.response.data.msg,'error')
     }
     stopLoading()
   };
@@ -91,11 +149,13 @@ const AppProvider = ({children})=>{
     clearAlert,
     displayAlertClear,
     startLoading,
-    stopLoading
+    stopLoading,
+    updateUser,
+    logoutUser
   }
 
- 
-return <appContext.Provider value={value}>{children}</appContext.Provider>
+return <appContext.Provider value={value}>{state.userLoading ? <BigLoadingPage/> : children}</appContext.Provider>
+
 }
 
 export const useAppContext = () => useContext(appContext)

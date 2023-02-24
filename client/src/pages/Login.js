@@ -40,6 +40,7 @@ const Login = () => {
     await setupUser(currentUser,'login','Login success!, Redirect...',()=>{
       clearInput()
       setTimeout(()=>{
+        clearAlert()
         navigate('/')
       },2000)
     })
@@ -57,7 +58,7 @@ const Login = () => {
           <Input label='Email' type='email' name='email' changeHandle={handleChange} minLength='2'/>
           <Input label='Password' type='password' name='password' minLength='6' pattern="(?=.*[A-Z])(?=.*\d).+"changeHandle={handleChange} title="Password minimal harus 1 kapital dan 1 angka"/>
         </div>
-          <button disabled={loading || !(values.email && values.password)} type='submit' className='button mt-5'>{loading ? <Loading width={5}/> : 'Login'}</button>
+          <button disabled={loading || !(values.email && values.password)} type='submit' className='button mt-5'>{loading ? <Loading /> : 'Login'}</button>
 
           <p className='text-slate-300 text-center mt-5'>Do not have account? <Link className='italic text-slate-100 font-bold' to={'/register'}>
           Register

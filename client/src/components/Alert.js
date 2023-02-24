@@ -10,7 +10,7 @@ const Alert = ({absolute=false}) => {
   }
 
   return (
-    <div className={`${statusAlert[typeAlert]} text-white p-4 py-2 text-lg rounded-md ${absolute && 'absolute top-10 right-1/2 translate-x-1/2 translate-y-1/2'} text-center`}>{textAlert}</div>
+    <div className={`z-30 ${statusAlert[typeAlert]} text-white p-4 py-2 text-lg rounded-md ${absolute && 'absolute top-0 right-1/2 translate-x-1/2 translate-y-1/2 bg-opacity-90'} text-center`}>{textAlert}</div>
   )
 }
 

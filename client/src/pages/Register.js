@@ -46,6 +46,7 @@ const Register = () => {
     await setupUser(currentUser,'register','Account Created!, Redirect...',()=>{
       clearInput()
       setTimeout(()=>{
+        clearAlert()
         navigate('/login')
       },2000)
     })
@@ -67,7 +68,7 @@ const Register = () => {
           <Input label='Password' type='password' name='password' minLength='6' pattern="(?=.*[A-Z])(?=.*\d).+"changeHandle={handleChange} title="Password minimal harus 1 kapital dan 1 angka"/>
           <Input label='Confirm Password' type='password' name='confirmPassword' minLength='6' pattern="(?=.*[A-Z])(?=.*\d).+"changeHandle={handleChange} title="Password minimal harus 1 kapital dan 1 angka"/>
         </div>
-          <button disabled={loading || !(values.name && values.email && values.password && values.confirmPassword)} type='submit' className='button mt-5'>{loading ? <Loading width={5}/> : 'Register'}</button>
+          <button disabled={loading || !(values.name && values.email && values.password && values.confirmPassword)} type='submit' className='button mt-5'>{loading ? <Loading /> : 'Register'}</button>
 
           <p className='text-slate-300 text-center mt-5'>Already Has Account? <Link className='italic text-slate-100 font-bold' to={'/login'}>
           Login
