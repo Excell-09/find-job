@@ -7,3 +7,8 @@
     @apply bg-slate-300
   }
 }
+@layer components{
+  .button{
+    @apply disabled:opacity-50 disabled:hover:bg-blue-500 disabled:cursor-not-allowed flex justify-center items-center w-full h-12 bg-blue-500 shadow text-white rounded-sm hover:bg-blue-400
+  }
+}

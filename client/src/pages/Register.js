@@ -57,7 +57,7 @@ const Register = () => {
     <div>
       <NavLanding />
       <main className='px-4 max-w-6xl mx-auto'>
-        <section className='flex justify-center items-center flex-col md:min-h-screen md:mt-8 mb-10 mt-[5rem]'>
+        <section className='flex justify-center items-center flex-col min-h-screen'>
         <form autoComplete='off' autoCorrect='off' className='w-[95%] sm:w-3/4 lg:w-1/2 bg-slate-600 p-6' onSubmit={handleRegister}>
         <h1 className='text-2xl text-white text-center mb-5 font-bold'>Get Started</h1>
         {showAlert && <Alert/>}
@@ -67,7 +67,7 @@ const Register = () => {
           <Input label='Password' type='password' name='password' minLength='6' pattern="(?=.*[A-Z])(?=.*\d).+"changeHandle={handleChange} title="Password minimal harus 1 kapital dan 1 angka"/>
           <Input label='Confirm Password' type='password' name='confirmPassword' minLength='6' pattern="(?=.*[A-Z])(?=.*\d).+"changeHandle={handleChange} title="Password minimal harus 1 kapital dan 1 angka"/>
         </div>
-          <button type='submit' className='flex justify-center items-center w-full h-12 bg-blue-500 text-white rounded-sm hover:bg-blue-400 mt-5'>{loading ? <Loading width={5}/> : 'Register'}</button>
+          <button disabled={loading || !(values.name && values.email && values.password && values.confirmPassword)} type='submit' className='button mt-5'>{loading ? <Loading width={5}/> : 'Register'}</button>
 
           <p className='text-slate-300 text-center mt-5'>Already Has Account? <Link className='italic text-slate-100 font-bold' to={'/login'}>
           Login

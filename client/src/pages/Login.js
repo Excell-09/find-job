@@ -49,7 +49,7 @@ const Login = () => {
     <div>
       <NavLanding />
       <main className='px-4 max-w-6xl mx-auto'>
-        <section className='flex justify-center items-center flex-col md:min-h-screen md:mt-8 mb-10 mt-[5rem]'>
+        <section className='flex justify-center items-center flex-col min-h-screen'>
         <form className='w-[95%] sm:w-3/4 lg:w-1/2 bg-slate-600 p-6' onSubmit={handleLogin}>
         <h1 className='text-2xl text-white text-center mb-5 font-bold'>Login</h1>
         {showAlert && <Alert/>}
@@ -57,7 +57,7 @@ const Login = () => {
           <Input label='Email' type='email' name='email' changeHandle={handleChange} minLength='2'/>
           <Input label='Password' type='password' name='password' minLength='6' pattern="(?=.*[A-Z])(?=.*\d).+"changeHandle={handleChange} title="Password minimal harus 1 kapital dan 1 angka"/>
         </div>
-          <button type='submit' className='flex justify-center items-center w-full h-12 bg-blue-500 text-white rounded-sm hover:bg-blue-400 mt-5'>{loading ? <Loading width={5}/> : 'Login'}</button>
+          <button disabled={loading || !(values.email && values.password)} type='submit' className='button mt-5'>{loading ? <Loading width={5}/> : 'Login'}</button>
 
           <p className='text-slate-300 text-center mt-5'>Do not have account? <Link className='italic text-slate-100 font-bold' to={'/register'}>
           Register
