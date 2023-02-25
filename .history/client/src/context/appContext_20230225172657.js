@@ -113,7 +113,8 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       displayAlert(error.response.data.msg, 'error');
       if (error.response.data.msg === 'email field has to be unique') {
-        displayAlert('Email Already Exits!', 'error');
+        console.log(error);
+        displayAlert(error.response.data.msg, 'error');
       }
     }
     stopLoading();

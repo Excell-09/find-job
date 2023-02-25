@@ -1,11 +1,14 @@
-import React from 'react'
+import React from 'react';
+import JobBox from '../../components/JobBox';
+import SearchBox from '../../components/SearchBox';
 
 const Findjob = () => {
   return (
-    <div>
-      find
-    </div>
-  )
-}
+    <>
+      <SearchBox />
+      <JobBox/>
+    </>
+  );
+};
 
-export default Findjob
+export default Findjob;

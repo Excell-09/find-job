@@ -1,18 +1,18 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
-import reducer from './reducer';
-import axios from 'axios';
-import BigLoadingPage from '../components/BigLoadingPage';
+import { createContext,useContext,useEffect,useReducer } from "react";
+import reducer from "./reducer";
+import axios from 'axios'
+import BigLoadingPage from "../components/BigLoadingPage";
 
-const appContext = createContext();
+const appContext = createContext()
 
 export const initialState = {
-  userLoading: true,
-  showAlert: false,
-  textAlert: '',
-  typeAlert: '',
-  loading: false,
-  user: null,
-  userLocation: '',
+  userLoading:true,
+  showAlert:false,
+  textAlert:'',
+  typeAlert:'',
+  loading:false,
+  user:null,
+  userLocation:'',
   isEditing: false,
   editJobId: '',
   position: '',
@@ -33,10 +33,11 @@ export const initialState = {
   searchType: 'all',
   sort: 'latest',
   sortOptions: ['latest', 'oldest', 'a-z', 'z-a'],
-};
 
-const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+}
+
+const AppProvider = ({children})=>{
+  const [state,dispatch] = useReducer(reducer,initialState)
 
   const getCurrentUser = async () => {
     try {
@@ -47,13 +48,13 @@ const AppProvider = ({ children }) => {
         type: 'SETUP_USER',
         payload: { user, location },
       });
-      dispatch({ type: 'STOP_USER_LOADING' });
+      dispatch({type:'STOP_USER_LOADING'})
     } catch (error) {
       if (error.response.status === 401) return;
       logoutUser();
     }
   };
-
+  
   useEffect(() => {
     getCurrentUser();
     // eslint-disable-next-line
@@ -77,30 +78,35 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 401) {
         logoutUser();
       }
-      if (error?.response?.status === 429) {
-        displayAlert('Too many request, Plase wait!', 'error');
+      if(error?.response?.status === 429){
+        displayAlert('Too many request, Plase wait!','error')
+
       }
       return Promise.reject(error);
     }
   );
 
-  const setupUser = async (currentUser, endPoint, alertText, fn) => {
+  const setupUser = async (currentUser, endPoint, alertText,fn) => {
     try {
-      const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser);
+      const {data} = await axios.post(
+        `/api/v1/auth/${endPoint}`,
+        currentUser
+      );
       const { user, location } = data;
       dispatch({
         type: 'SETUP_USER',
         payload: { user, location },
       });
-      displayAlert(alertText, 'success');
-      fn();
+      displayAlert(alertText,'success')
+      fn()
     } catch (error) {
-      displayAlert(error.response.data.msg, 'error');
+      displayAlert(error.response.data.msg,'error')
+    
     }
-    stopLoading();
+    stopLoading()
   };
 
-  const updateUser = async (currentUser, fn) => {
+  const updateUser = async (currentUser,fn) => {
     try {
       const { data } = await authFetch.patch('/auth/updateUser', currentUser);
       const { user, location } = data;
@@ -109,37 +115,32 @@ const AppProvider = ({ children }) => {
         type: 'SETUP_USER',
         payload: { user, location },
       });
-      fn();
+      fn()
     } catch (error) {
-      displayAlert(error.response.data.msg, 'error');
-      if (error.response.data.msg === 'email field has to be unique') {
-        displayAlert('Email Already Exits!', 'error');
-      }
+      displayAlert(error.response.data.msg,'error')
     }
-    stopLoading();
+    stopLoading()
   };
 
-  const startLoading = () => {
-    dispatch({ type: 'START_LOADING' });
-  };
-  const stopLoading = () => {
-    dispatch({ type: 'STOP_LOADING' });
-  };
+  const startLoading = ()=>{
+    dispatch({type:'START_LOADING'})
+  }
+  const stopLoading = ()=>{
+    dispatch({type:'STOP_LOADING'})
+  }
+  
+  const displayAlertClear =(label,status)=>{
+    dispatch({type:'DISPLAY_ALERT', payload:{label,status} })
+    setTimeout(()=>{clearAlert()},[2000])
+  }
 
-  const displayAlertClear = (label, status) => {
-    dispatch({ type: 'DISPLAY_ALERT', payload: { label, status } });
-    setTimeout(() => {
-      clearAlert();
-    }, [2000]);
-  };
+  const displayAlert =(label,status)=>{
+    dispatch({type:'DISPLAY_ALERT', payload:{label,status} })
+  }
 
-  const displayAlert = (label, status) => {
-    dispatch({ type: 'DISPLAY_ALERT', payload: { label, status } });
-  };
-
-  const clearAlert = () => {
-    dispatch({ type: 'CLEAR_ALERT' });
-  };
+  const clearAlert = ()=>{
+      dispatch({type:'CLEAR_ALERT'})
+  }
 
   const value = {
     ...state,
@@ -150,12 +151,13 @@ const AppProvider = ({ children }) => {
     startLoading,
     stopLoading,
     updateUser,
-    logoutUser,
-  };
+    logoutUser
+  }
 
-  return <appContext.Provider value={value}>{state.userLoading ? <BigLoadingPage /> : children}</appContext.Provider>;
-};
+return <appContext.Provider value={value}>{state.userLoading ? <BigLoadingPage/> : children}</appContext.Provider>
 
-export const useAppContext = () => useContext(appContext);
+}
 
-export default AppProvider;
+export const useAppContext = () => useContext(appContext)
+
+export default AppProvider
