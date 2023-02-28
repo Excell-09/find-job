@@ -8,6 +8,7 @@ import Error from './pages/Error';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProtectRoute from './pages/ProtectRoute';
 
 function App() {
   return (
@@ -21,7 +22,11 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
 
-          <Route path='/' element={<Layout />}>
+          <Route path='/' element={
+          <ProtectRoute>
+          <Layout />
+          </ProtectRoute>
+          }>
             <Route index element={<Findjob />} />
             <Route path='/create' element={<CreateJob />} />
             <Route path='/update' element={<Updateprofile />} />
