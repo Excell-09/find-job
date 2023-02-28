@@ -22,7 +22,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "client/build/index.html"
+      "dest": "client/build/$1"
     }
   ]
 }
