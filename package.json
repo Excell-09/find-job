@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "install-dependencies": "npm install && cd ../client && npm install && npm ../server",
+    "install-dependencies": "npm install && cd client && npm install",
     "vercel-build": "cd ../client && npm run build ",
     "server": "nodemon server",
     "start": "node server.js"
