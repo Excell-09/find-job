@@ -21,7 +21,7 @@ const app = express();
 dotenv.config();
 
 //BJCeokB6pkDjfjtw
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'Production') {
   app.use(morgan('dev'));
 }
 
