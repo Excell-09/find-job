@@ -11,7 +11,8 @@
       "config": {
         "distDir": "client/build",
         "outputDirectory": "client/build",
-        "buildCommand": "npm run vercel-build"
+        "buildCommand": "npm run vercel-build",
+        "public": true
 
       }
     }
