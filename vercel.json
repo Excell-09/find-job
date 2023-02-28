@@ -10,6 +10,7 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "client/build",
+        "outputDirectory": "client/build",
         "buildCommand": "npm run vercel-build"
 
       }
