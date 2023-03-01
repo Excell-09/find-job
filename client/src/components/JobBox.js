@@ -3,7 +3,7 @@ import { useAppContext } from '../context/appContext';
 import BigLoading from './BigLoading';
 import CardJob from './CardJob';
 
-const JobBox = ({ jobs, page, setPage }) => {
+const JobBox = ({ jobs, page, setPage,ableEdit }) => {
   const { totalJobs, loading, numOfPages } = useAppContext();
 
   if (loading) {
@@ -19,7 +19,7 @@ const JobBox = ({ jobs, page, setPage }) => {
       {jobs.length === 0 ? <h1 className='text-2xl font-semibold my-3'>No Jobs</h1> : <h1 className='text-2xl font-semibold my-3'>{totalJobs} Jobs Found</h1>}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3'>
         {jobs.map((item, i) => {
-          return <CardJob ableEdit key={i} job={item} />;
+          return <CardJob ableEdit={ableEdit} key={i} job={item} />;
         })}
       </div>
 

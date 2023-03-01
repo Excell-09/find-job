@@ -13,7 +13,7 @@ const COLOR_STATUS = {
   declined: 'bg-red-500',
 };
 
-const CardJob = ({ job, ableEdit = false }) => {
+const CardJob = ({ job, ableEdit }) => {
   const navigate = useNavigate();
   const { setIdJob, loading, deleteJob } = useAppContext();
   const company = job.company[0];

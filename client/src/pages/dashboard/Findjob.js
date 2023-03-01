@@ -37,7 +37,7 @@ const Findjob = () => {
         sortOptions={sortOptions}
         sort={sort}
       />
-      <JobBox jobs={jobs} page={page} setPage={setPage} />
+      <JobBox ableEdit={false} jobs={jobs} page={page} setPage={setPage} />
     </>
   );
 };

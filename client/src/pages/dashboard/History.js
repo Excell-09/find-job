@@ -28,7 +28,7 @@ const History = () => {
         sortOptions={sortOptions}
         sort={sort}
       />
-      <JobBox jobs={jobs} page={page} setPage={setPage} />
+      <JobBox ableEdit={true} jobs={jobs} page={page} setPage={setPage} />
     </>
   );
 };
