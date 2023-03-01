@@ -20,7 +20,7 @@ import authenticateUser from './middleware/auth.js';
 const app = express();
 dotenv.config();
 
-if (process.env.NODE_ENV !== 'Production') {
+if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 
