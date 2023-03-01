@@ -9,18 +9,36 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProtectRoute from './pages/ProtectRoute';
+import PublicRoute from './pages/PublicRoute';
 
 function App() {
   return (
     <div className='App'>
       <Router>
         <Routes>
-          <Route path='*' element={<Error />} />
+          <Route path='*' element={
 
-          <Route path='/landing' element={<Landing />} />
+              
+          <Error />
+          } />
 
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/landing' element={
+            <PublicRoute>
+              <Landing />
+            </PublicRoute>
+          } />
+
+          <Route path='/register' element={
+           <PublicRoute>
+          <Register />
+           </PublicRoute>
+          
+          } />
+          <Route path='/login' element={
+             <PublicRoute>
+          <Login />
+             </PublicRoute> 
+          } />
 
           <Route path='/' element={
           <ProtectRoute>

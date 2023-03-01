@@ -9,10 +9,13 @@ const ProtectRoute = ({children}) => {
   if (userLoading) return <BigLoadingPage />;
 
   if (!user) {
-    return <Navigate to='/landing' />;
+    return <Navigate to='/login' />;
   }
-  return children;
 
+return children;
+  
+
+  
 }
 
 export default ProtectRoute

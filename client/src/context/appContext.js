@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import reducer from './reducer';
 import axios from 'axios';
-import BigLoadingPage from '../components/BigLoadingPage';
 
 const appContext = createContext();
 
@@ -265,7 +264,7 @@ const AppProvider = ({ children }) => {
     deleteJob,
   };
 
-  return <appContext.Provider value={value}>{state.userLoading ? <BigLoadingPage /> : children}</appContext.Provider>;
+  return <appContext.Provider value={value}>{ children}</appContext.Provider>;
 };
 
 export const useAppContext = () => useContext(appContext);
